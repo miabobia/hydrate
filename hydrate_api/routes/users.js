@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const gardenDB = require('./db_manager')
+const gardenDB = require('./db_manager');
 
 /*
 _________________
@@ -19,13 +19,14 @@ function userExists(userID) {
   return (x['COUNT(*)'] > 0)
 }
 
+router.post('/:user_id/:password', function(req, res, next) {
+  const { user_id, password } = req.params
+});
+
 /* GET users listing. */
 router.get('/:user_id', function(req, res, next) {
   console.log(gardenDB.select('USERS', '', ''))
   res.send(`user_id ${req.params.user_id} exists: ${userExists(req.params.user_id)}`)
-  // let x = gardenDB.select('USERS', ['COUNT(*)'], '')
-  // console.log(x)
-  // res.send(x);
 });
 
 module.exports = router;
