@@ -1,0 +1,1 @@
+SELECT U, S, E, R, N, A, M, E, ,,  , P, A, S, S, W, O, R, D FROM USERS

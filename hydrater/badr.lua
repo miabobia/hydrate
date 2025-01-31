@@ -20,10 +20,22 @@ function badr:new(t)
         id = tostring(love.timer.getTime()),
         visible = true,
         children = {},
+        menuColor = {RED = 50, BLUE = 0, GREEN = 0, ALPHA = 1},
     }
     for key, value in pairs(t) do
         _default[key] = value
     end
+
+    if t.menuColor then
+        _default.menuColor = {
+            RED = t.menuColor.RED or 0,
+            BLUE = t.menuColor.BLUE or 0,
+            GREEN = t.menuColor.GREEN or 0,
+            ALPHA = t.menuColor.ALPHA or 1
+        }
+    end
+
+
     return setmetatable(_default, badr)
 end
 

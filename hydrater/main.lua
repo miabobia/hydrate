@@ -2,9 +2,12 @@
 
 -- imports
 local LoginMenu = require("loginMenu")
+local apiHandler = require("api_test")
 
 -- current menu pointer
 local CurrentMenu
+
+local colorIndex = 0
 
 function love.load()
     love.keyboard.setTextInput(true)
@@ -17,27 +20,30 @@ function love.update(dt)
 end
 
 function love.draw()
+    -- print(CurrentMenu.backgroundColor)
+    CurrentMenu:drawBackground()
     CurrentMenu:draw()
 end
 
 -- keyboard I/O
 function love.textinput(t)
-    print("TEXT INPUT")
+    -- print("TEXT INPUT")
     CurrentMenu:textinput(t)
-    -- text = text .. t
+    if CurrentMenu.backgroundColor then
+        apiHandler:dumpTable(CurrentMenu.backgroundColor)
+    end
 end
 
 function love.keypressed(key)
-    print("KEY PRESSED"..key)
-    CurrentMenu:keyPressed(key)
-    -- if key == "backspace" then
-    --     -- get the byte offset to the last UTF-8 character in the string.
-    --     local byteoffset = utf8.offset(text, -1)
+    -- print("KEY PRESSED"..key)
 
-    --     if byteoffset then
-    --         -- remove the last UTF-8 character.
-    --         -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
-    --         text = string.sub(text, 1, byteoffset - 1)
-    --     end
-    -- end
+    if key == "left" then
+        colorIndex = colorIndex - 1
+    elseif key == "right" then
+        colorIndex = colorIndex + 1
+    end
+    -- print(colorIndex)
+    apiHandler:getColor(colorIndex)
+
+    CurrentMenu:keyPressed(key)
 end
